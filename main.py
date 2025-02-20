@@ -1,14 +1,19 @@
 import pygame
 
 from constants import *
-import utils
+from utils import to_seconds
+from player import Player
 
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+    # Admin objects
     clock = pygame.time.Clock()
     dt = 0  # delta time
+
+    # Game objects
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     # Main game loop
     while True:
@@ -17,8 +22,9 @@ def main():
                 return
 
         screen.fill('black')
+        player.draw(screen)
         pygame.display.flip()
-        dt = utils.to_seconds(clock.tick(60))
+        dt = to_seconds(clock.tick(60))
         
 
 if __name__ == '__main__':
