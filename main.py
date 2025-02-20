@@ -11,6 +11,10 @@ def main():
     # Admin objects
     clock = pygame.time.Clock()
     dt = 0  # delta time
+    updatables = pygame.sprite.Group()
+    drawables = pygame.sprite.Group()
+
+    Player.containers = (updatables, drawables)
 
     # Game objects
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
@@ -20,12 +24,17 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-            
-        player.update(dt)
-
+        
+        # for starters, update all objects (game state)
+        updatables.update(dt)
+        # paint background
         screen.fill('black')
-        player.draw(screen)
+        # paint objects on (top of) background
+        for drawable in drawables:
+            drawable.draw(screen)
+        # clear screen
         pygame.display.flip()
+        # calculate passed time since last draw
         dt = to_seconds(clock.tick(60))
         
 
