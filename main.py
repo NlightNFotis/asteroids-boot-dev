@@ -34,6 +34,12 @@ def main():
         
         # for starters, update all objects (game state)
         updatables.update(dt)
+        # check for asteroid collision (game over)
+        for asteroid in asteroids:
+            if asteroid.check_collision(player):
+                print("Game over!")
+                return
+        
         # paint background
         screen.fill('black')
         # paint objects on (top of) background
